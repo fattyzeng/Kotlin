@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+
+    defaultConfig {
+        applicationId "com.okl.wechathelper"
+        minSdkVersion 17
+        targetSdkVersion 21
+        versionCode 20170527
+        versionName "1.0.6"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
+    }
+    buildTypes {
+        release {
+
+
+            //圈子地址
+//            buildConfigField "String", "CIRCLE_URL", "\"http://10.158.134.80/om-zone\""
+
+            minifyEnabled false
+            //是否清理无用资源
+            shrinkResources false
+            //是否启用zipAlign压缩
+//            zipAlignEnabled true
+            multiDexEnabled true
+        }
+
+        debug {
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+
+            // buildConfigField "String", "SERVER_HOST", "\"http://192.168.1.120:8282\""
+
+//          buildConfigField "String", "SERVER_HOST", "\"http://106.14.250.224:8080\""
+
+//            http://106.14.61.33:9999/mig-manager
+           // buildConfigField "String", "SERVER_HOST", "\"http://192.168.0.88:8080\""
+
+            manifestPlaceholders = [APP_NAME: "播报助手_测试版"]
+
+
+            minifyEnabled false//true：启用混淆,false:不启用
+            shrinkResources false
+//            zipAlignEnabled true
+            multiDexEnabled true
+
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+ //   compile 'com.tencent.bugly:crashreport:latest.release'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+  //  compile 'com.tencent.bugly:nativecrashreport:latest.release'
+   // 其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    //compile 'com.tencent.bugly:crashreport:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.3.2
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile 'com.android.support:appcompat-v7:25.1.0'
+
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+    mavenCentral()
+}
